@@ -38,10 +38,17 @@ void DLL::addInBetween(string location, string toInsert){
         if(temp!=nullptr){
             Node* newNode= new Node;
             newNode->m_data=toInsert;
-            temp->m_next->m_previous=newNode;
-            newNode->m_next=temp->m_next;
-            temp->m_next=newNode;
-            newNode->m_previous=temp;
+            if(temp==m_tail){
+                temp->m_next=newNode;
+                newNode->m_previous=temp;
+                newNode->m_next=nullptr;
+                m_tail=newNode;          
+            }else{
+                temp->m_next->m_previous=newNode;
+                newNode->m_next=temp->m_next;
+                temp->m_next=newNode;
+                newNode->m_previous=temp;
+            }
         }else{
             cout<<"Sorry, "<<location<<" was not found in the list"<<endl;
         }
